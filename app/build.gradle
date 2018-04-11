@@ -47,6 +47,7 @@ dependencies {
 
     // Architecture Components
     implementation "android.arch.persistence.room:runtime:$ver.architectureComponents"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor "android.arch.persistence.room:compiler:$ver.architectureComponents"
     annotationProcessor "android.arch.lifecycle:compiler:$ver.architectureComponentsLifecycle"
     implementation "android.arch.persistence.room:rxjava2:$ver.architectureComponents"
@@ -74,4 +75,3 @@ kotlin {
         coroutines "enable"
     }
 }
-
