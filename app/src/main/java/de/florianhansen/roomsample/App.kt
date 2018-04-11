@@ -2,6 +2,7 @@ package de.florianhansen.roomsample
 
 import android.app.Activity
 import android.app.Application
+import com.facebook.stetho.Stetho
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import de.florianhansen.roomsample.di.DaggerAppComponent
@@ -14,6 +15,9 @@ class App : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+
+        Stetho.initializeWithDefaults(this)
+
         DaggerAppComponent.builder()
                 .app(this)
                 .build()

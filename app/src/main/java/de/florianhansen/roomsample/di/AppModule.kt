@@ -13,6 +13,9 @@ class AppModule {
     @Provides
     @Singleton
     fun database(application: Application) =
-            Room.databaseBuilder(application, SampleDatabase::class.java, "sample.db")
-                    .build()
+            Room.databaseBuilder(application, SampleDatabase::class.java, "sample.db").build()
+
+    @Provides
+    @Singleton
+    fun userDao(db: SampleDatabase) = db.userDao()
 }
