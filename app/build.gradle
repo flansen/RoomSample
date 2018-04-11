@@ -31,7 +31,6 @@ dependencies {
     // Support Libs
     implementation "com.android.support:appcompat-v7:$ver.androidSupport"
     implementation "com.android.support:design:$ver.androidSupport"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$ver.kotlin"
 
     // RX
     implementation "io.reactivex.rxjava2:rxandroid:$ver.rxAndroid"
