@@ -1,6 +1,7 @@
 package de.florianhansen.roomsample.foreignkey
 
 import de.florianhansen.roomsample.common.SimpleListItem
+import de.florianhansen.roomsample.persistance.SampleDatabase
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -19,7 +20,7 @@ interface ForeignKeyViewModel {
     val isLoading: BehaviorSubject<Boolean>
 }
 
-class ForeignKeyViewModelImpl @Inject constructor(private val personDao: PersonDao) : ForeignKeyViewModel {
+class ForeignKeyViewModelImpl @Inject constructor(private val db: SampleDatabase) : ForeignKeyViewModel {
 
     override val isLoading: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
@@ -29,24 +30,27 @@ class ForeignKeyViewModelImpl @Inject constructor(private val personDao: PersonD
             //Some Time Intensive Network Request
             delay(2L, SECONDS)
 
-            val personId = personDao.savePerson(Person(name = "Gustav Günther"))
-            val pets = listOf(
-                    Pet(name = "Wau Wau", ownerId = personId),
-                    Pet(name = "Miez Miez", ownerId = personId)
-            )
-            pets.forEach {
-                personDao.savePet(it)
+            //Prevent the person flowable firing before all data is saved.
+            db.runInTransaction {
+                val personId = db.personDao().savePerson(Person(name = "Gustav Günther"))
+                val pets = listOf(
+                        Pet(name = "Wau Wau", ownerId = personId),
+                        Pet(name = "Miez Miez", ownerId = personId)
+                )
+                pets.forEach {
+                    db.personDao().savePet(it)
+                }
             }
             postLoadingValue(false)
         }
     }
 
     override val items: Flowable<List<SimpleListItem>> by lazy {
-        personDao.getPersons()
+        db.personDao().getPersons()
                 .map { persons ->
                     for (person: Person in persons) {
                         person.userId?.let { id ->
-                            val pets = personDao.getPetsForUser(id)
+                            val pets = db.personDao().getPetsForUser(id)
                             person.pets = pets
                         }
                     }

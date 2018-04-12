@@ -2,6 +2,8 @@ package de.florianhansen.roomsample.foreignkey
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import de.florianhansen.roomsample.BaseActivity
 import de.florianhansen.roomsample.R
 import de.florianhansen.roomsample.common.SimpleListAdapter
@@ -28,5 +30,24 @@ class ForeignKeyActivity : BaseActivity() {
 
         viewModel.items.subscribe { adapter.items = it }.addTo(disposable)
         viewModel.isLoading.subscribe { progress.visibility = it.toVisibility() }.addTo(disposable)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.add_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.action_add -> {
+                viewModel.addItem()
+                true
+            }
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> false
+        }
     }
 }

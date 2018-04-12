@@ -25,6 +25,9 @@ interface PersonDao {
     @Query("SELECT * FROM Person")
     fun getPersons(): Flowable<List<Person>>
 
+    @Query("SELECT * FROM Pet")
+    fun getPets(): Flowable<List<Pet>>
+
     @Query("SELECT * FROM Pet WHERE ownerId = :userId")
     fun getPetsForUser(userId: Long): List<Pet>
 }
