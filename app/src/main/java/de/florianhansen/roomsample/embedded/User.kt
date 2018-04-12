@@ -4,7 +4,6 @@ import android.arch.persistence.room.*
 import io.reactivex.Flowable
 
 //https://developer.android.com/training/data-storage/room/defining-data.html
-
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

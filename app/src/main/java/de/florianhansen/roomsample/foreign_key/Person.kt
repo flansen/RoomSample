@@ -2,6 +2,7 @@ package de.florianhansen.roomsample.foreign_key
 
 import android.arch.persistence.room.*
 
+//https://android.jlelse.eu/android-architecture-components-room-relationships-bf473510c14a
 @Entity
 data class Person(
         @PrimaryKey(autoGenerate = true) var userId: Long?,

@@ -3,6 +3,7 @@ package de.florianhansen.roomsample.relation
 import android.arch.persistence.room.*
 import io.reactivex.Flowable
 
+//https://medium.com/google-developers/7-pro-tips-for-room-fbadea4bfbd1
 @Entity
 data class GitUser(
         @PrimaryKey(autoGenerate = true) var id: Long?,
