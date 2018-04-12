@@ -20,4 +20,12 @@ class AppModule {
     @Provides
     @Singleton
     fun userDao(db: SampleDatabase) = db.userDao()
+
+    @Provides
+    @Singleton
+    fun gitDao(db: SampleDatabase) = db.gitDao()
+
+    @Provides
+    @Singleton
+    fun personDao(db: SampleDatabase) = db.personDao()
 }

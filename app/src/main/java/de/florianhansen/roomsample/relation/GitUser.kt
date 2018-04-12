@@ -25,7 +25,6 @@ class UserAndRepo {
     @Relation(parentColumn = "id",
             entityColumn = "userId")
     var repos: List<Repo> = mutableListOf()
-
 }
 
 @Dao

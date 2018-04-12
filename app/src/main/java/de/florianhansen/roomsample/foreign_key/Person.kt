@@ -5,19 +5,19 @@ import android.arch.persistence.room.*
 //https://android.jlelse.eu/android-architecture-components-room-relationships-bf473510c14a
 @Entity
 data class Person(
-        @PrimaryKey(autoGenerate = true) var userId: Long?,
+        @PrimaryKey(autoGenerate = true) var userId: Long? = null,
         var name: String,
-        @Ignore var pets: List<Pet>?
+        @Ignore var pets: List<Pet>? = null
 )
 
 @Dao
 interface PersonDao {
 
     @Insert
-    fun savePerson(person: Person)
+    fun savePerson(person: Person): Long
 
     @Insert
-    fun savePet(pet: Pet)
+    fun savePet(pet: Pet): Long
 
     @Query("SELECT * FROM Person")
     fun getPersons(): List<Person>
@@ -28,7 +28,7 @@ interface PersonDao {
 
 @Entity(foreignKeys = [(ForeignKey(entity = Person::class, parentColumns = ["userId"], childColumns = ["owner"], onDelete = ForeignKey.CASCADE))])
 data class Pet(
-        @PrimaryKey(autoGenerate = true) var petId: Long?,
+        @PrimaryKey(autoGenerate = true) var petId: Long? = null,
         var name: String,
-        var ownerId: Long
+        var ownerId: Long? = null
 )

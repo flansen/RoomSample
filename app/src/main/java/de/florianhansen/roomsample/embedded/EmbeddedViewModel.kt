@@ -24,9 +24,8 @@ class EmbeddedViewModelImpl @Inject constructor(private val userDao: UserDao) : 
     override val isLoading: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     override fun addItem() {
+        isLoading.onNext(true)
         launch(CommonPool) {
-            postLoadingValue(true)
-
             //Some Time Intensive Network Request
             delay(2L, SECONDS)
             userDao.insert(User(null, "Florian Hansen", Address("Street", "City", 12345)))
