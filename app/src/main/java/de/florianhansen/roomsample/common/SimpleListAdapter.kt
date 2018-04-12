@@ -38,8 +38,8 @@ class SimpleListAdapter : RecyclerView.Adapter<SimpleListAdapter.SimpleViewHolde
         }
 
         fun bind(item: SimpleListItem) {
-            user.text = item.name
-            city.text = item.city
+            user.text = item.headline
+            city.text = item.subtitle
         }
     }
 }

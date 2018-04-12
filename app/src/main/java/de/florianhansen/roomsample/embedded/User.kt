@@ -9,7 +9,7 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: User)
 
-    @Query("SELECT city FROM USER")
+    @Query("SELECT subtitle FROM USER")
     fun getAll(): Flowable<List<User>>
 }
 
