@@ -19,6 +19,9 @@ interface PersonDao {
     @Insert
     fun savePerson(person: Person): Long
 
+    @Update
+    fun updatePerson(person: Person)
+
     @Insert
     fun savePet(pet: Pet): Long
 

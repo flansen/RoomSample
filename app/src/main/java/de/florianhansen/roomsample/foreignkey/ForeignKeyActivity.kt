@@ -33,7 +33,7 @@ class ForeignKeyActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.add_menu, menu)
+        menuInflater.inflate(R.menu.add_edit_menu, menu)
         return true
     }
 
@@ -41,6 +41,10 @@ class ForeignKeyActivity : BaseActivity() {
         return when (item?.itemId) {
             R.id.action_add -> {
                 viewModel.addItem()
+                true
+            }
+            R.id.action_edit -> {
+                viewModel.editItem()
                 true
             }
             android.R.id.home -> {

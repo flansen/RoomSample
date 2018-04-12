@@ -3,7 +3,6 @@ package de.florianhansen.roomsample.embedded
 import de.florianhansen.roomsample.common.SimpleListItem
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
@@ -37,7 +36,7 @@ class EmbeddedViewModelImpl @Inject constructor(private val userDao: UserDao) : 
     override val items: Flowable<List<SimpleListItem>> by lazy {
         userDao.getAll()
                 .map { it.map { it.toItemViewModel() } }
-                .subscribeOn(Schedulers.io())
+                //Flowables work off the main thread
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
@@ -48,5 +47,4 @@ class EmbeddedViewModelImpl @Inject constructor(private val userDao: UserDao) : 
     }
 }
 
-private fun User.toItemViewModel() = SimpleListItem(name, address?.city
-        ?: "")
+private fun User.toItemViewModel() = SimpleListItem(name, address?.city ?: "")

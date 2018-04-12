@@ -4,7 +4,6 @@ import de.florianhansen.roomsample.common.SimpleListItem
 import de.florianhansen.roomsample.persistance.SampleDatabase
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
@@ -16,6 +15,8 @@ import javax.inject.Inject
 
 interface ForeignKeyViewModel {
     fun addItem()
+    fun editItem()
+
     val items: Flowable<List<SimpleListItem>>
     val isLoading: BehaviorSubject<Boolean>
 }
@@ -23,6 +24,8 @@ interface ForeignKeyViewModel {
 class ForeignKeyViewModelImpl @Inject constructor(private val db: SampleDatabase) : ForeignKeyViewModel {
 
     override val isLoading: BehaviorSubject<Boolean> = BehaviorSubject.create()
+
+    private lateinit var itemCache: List<Person>
 
     override fun addItem() {
         isLoading.onNext(true)
@@ -45,6 +48,13 @@ class ForeignKeyViewModelImpl @Inject constructor(private val db: SampleDatabase
         }
     }
 
+    override fun editItem() {
+        launch(CommonPool) {
+            val updatedItem = itemCache[0].copy(name = "Sabrina Sauer")
+            db.personDao().updatePerson(updatedItem)
+        }
+    }
+
     override val items: Flowable<List<SimpleListItem>> by lazy {
         db.personDao().getPersons()
                 .map { persons ->
@@ -54,9 +64,10 @@ class ForeignKeyViewModelImpl @Inject constructor(private val db: SampleDatabase
                             person.pets = pets
                         }
                     }
+                    itemCache = persons
+
                     return@map persons.map { it.toSimpleListItem() }
                 }
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 

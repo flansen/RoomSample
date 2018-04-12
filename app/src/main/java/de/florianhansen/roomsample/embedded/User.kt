@@ -6,10 +6,11 @@ import io.reactivex.Flowable
 //https://developer.android.com/training/data-storage/room/defining-data.html
 @Dao
 interface UserDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: User)
 
-    @Query("SELECT name FROM USER")
+    @Query("SELECT * FROM USER")
     fun getAll(): Flowable<List<User>>
 }
 
