@@ -5,8 +5,8 @@ import dagger.android.ContributesAndroidInjector
 import de.florianhansen.roomsample.MainActivity
 import de.florianhansen.roomsample.embedded.EmbeddedActivity
 import de.florianhansen.roomsample.embedded.EmbeddedModule
-import de.florianhansen.roomsample.embedded.ForeignKeyModule
 import de.florianhansen.roomsample.foreignkey.ForeignKeyActivity
+import de.florianhansen.roomsample.foreignkey.ForeignKeyModule
 
 @Module
 abstract class ActivityBuilder {
