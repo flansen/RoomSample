@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".embedded.EmbeddedActivity" />
-        <activity android:name=".foreign_key.ForeignKeyActivity"></activity>
+        <activity android:name=".foreignkey.ForeignKeyActivity"></activity>
     </application>
 
 </manifest>

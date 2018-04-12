@@ -2,7 +2,7 @@ package de.florianhansen.roomsample
 
 import android.os.Bundle
 import de.florianhansen.roomsample.embedded.EmbeddedActivity
-import de.florianhansen.roomsample.foreign_key.ForeignKeyActivity
+import de.florianhansen.roomsample.foreignkey.ForeignKeyActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
