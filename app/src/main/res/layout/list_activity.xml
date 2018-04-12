@@ -7,7 +7,7 @@
     tools:context=".embedded.EmbeddedActivity">
 
     <ProgressBar
-        android:id="@+id/embedded_progress"
+        android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -15,7 +15,7 @@
         tools:visibility="visible" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/embedded_recycler"
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

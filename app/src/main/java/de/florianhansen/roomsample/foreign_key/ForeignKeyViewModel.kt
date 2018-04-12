@@ -13,13 +13,13 @@ import java.util.concurrent.TimeUnit.SECONDS
 import javax.inject.Inject
 
 
-interface EmbeddedViewModel {
+interface ForeignKeyViewModel {
     fun addItem()
     val items: Flowable<List<SimpleListItem>>
     val isLoading: BehaviorSubject<Boolean>
 }
 
-class EmbeddedViewModelImpl @Inject constructor(private val userDao: UserDao) : EmbeddedViewModel {
+class ForeignKeyViewModelImpl @Inject constructor(private val userDao: UserDao) : ForeignKeyViewModel {
 
     override val isLoading: BehaviorSubject<Boolean> = BehaviorSubject.create()
 

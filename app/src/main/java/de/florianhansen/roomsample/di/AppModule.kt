@@ -13,7 +13,9 @@ class AppModule {
     @Provides
     @Singleton
     fun database(application: Application) =
-            Room.databaseBuilder(application, SampleDatabase::class.java, "sample.db").build()
+            Room.databaseBuilder(application, SampleDatabase::class.java, "sample.db")
+                    .fallbackToDestructiveMigration()
+                    .build()
 
     @Provides
     @Singleton

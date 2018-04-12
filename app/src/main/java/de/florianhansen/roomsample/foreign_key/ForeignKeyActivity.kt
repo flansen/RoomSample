@@ -1,21 +1,20 @@
-package de.florianhansen.roomsample.embedded
+package de.florianhansen.roomsample.foreign_key
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.Menu
-import android.view.MenuItem
 import de.florianhansen.roomsample.BaseActivity
 import de.florianhansen.roomsample.R
 import de.florianhansen.roomsample.common.SimpleListAdapter
+import de.florianhansen.roomsample.embedded.ForeignKeyViewModel
 import de.florianhansen.roomsample.toVisibility
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.list_activity.*
 import javax.inject.Inject
 
-class EmbeddedActivity : BaseActivity() {
+class ForeignKeyActivity : BaseActivity() {
 
     @Inject
-    lateinit var viewModel: EmbeddedViewModel
+    lateinit var viewModel: ForeignKeyViewModel
 
     private val adapter by lazy { SimpleListAdapter() }
 
@@ -30,26 +29,5 @@ class EmbeddedActivity : BaseActivity() {
 
         viewModel.items.subscribe { adapter.items = it }.addTo(disposable)
         viewModel.isLoading.subscribe { progress.visibility = it.toVisibility() }.addTo(disposable)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.add_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            R.id.action_add -> {
-                viewModel.addItem()
-                true
-            }
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            else -> {
-                false
-            }
-        }
     }
 }
