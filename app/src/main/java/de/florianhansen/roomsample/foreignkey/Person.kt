@@ -22,6 +22,9 @@ interface PersonDao {
     @Update
     fun updatePerson(person: Person)
 
+    @Delete
+    fun deletePerson(person: Person)
+
     @Insert
     fun savePet(pet: Pet): Long
 

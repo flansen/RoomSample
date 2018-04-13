@@ -16,6 +16,7 @@ import javax.inject.Inject
 interface ForeignKeyViewModel {
     fun addItem()
     fun editItem()
+    fun deleteItem()
 
     val items: Flowable<List<SimpleListItem>>
     val isLoading: BehaviorSubject<Boolean>
@@ -52,6 +53,16 @@ class ForeignKeyViewModelImpl @Inject constructor(private val db: SampleDatabase
         launch(CommonPool) {
             val updatedItem = itemCache[0].copy(name = "Sabrina Sauer")
             db.personDao().updatePerson(updatedItem)
+        }
+    }
+
+    override fun deleteItem() {
+        if (itemCache.isEmpty()) {
+            return
+        }
+
+        launch(CommonPool) {
+            db.personDao().deletePerson(itemCache[0])
         }
     }
 

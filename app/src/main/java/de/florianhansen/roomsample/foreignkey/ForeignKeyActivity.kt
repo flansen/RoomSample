@@ -47,6 +47,10 @@ class ForeignKeyActivity : BaseActivity() {
                 viewModel.editItem()
                 true
             }
+            R.id.action_delete -> {
+                viewModel.deleteItem()
+                true
+            }
             android.R.id.home -> {
                 finish()
                 true
