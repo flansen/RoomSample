@@ -11,7 +11,7 @@ import de.florianhansen.roomsample.relation.GitUser
 import de.florianhansen.roomsample.relation.GitUserDao
 import de.florianhansen.roomsample.relation.Repo
 
-@Database(entities = arrayOf(User::class, Pet::class, Person::class, GitUser::class, Repo::class), version = 2)
+@Database(entities = [(User::class), (Pet::class), (Person::class), (GitUser::class), (Repo::class)], version = 2)
 abstract class SampleDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
