@@ -7,6 +7,8 @@ import de.florianhansen.roomsample.embedded.EmbeddedActivity
 import de.florianhansen.roomsample.embedded.EmbeddedModule
 import de.florianhansen.roomsample.foreignkey.ForeignKeyActivity
 import de.florianhansen.roomsample.foreignkey.ForeignKeyModule
+import de.florianhansen.roomsample.relation.RelationActivity
+import de.florianhansen.roomsample.relation.RelationModule
 
 @Module
 abstract class ActivityBuilder {
@@ -19,4 +21,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [ForeignKeyModule::class])
     abstract fun bindsForeignKeyActivity(): ForeignKeyActivity
+
+    @ContributesAndroidInjector(modules = [RelationModule::class])
+    abstract fun bindsRelationActivity(): RelationActivity
 }

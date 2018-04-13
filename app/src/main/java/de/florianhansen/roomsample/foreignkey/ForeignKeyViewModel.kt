@@ -90,6 +90,6 @@ class ForeignKeyViewModelImpl @Inject constructor(private val db: SampleDatabase
 }
 
 private fun Person.toSimpleListItem(): SimpleListItem {
-    val petNames = pets?.map { it.name }?.joinToString(", ") ?: ""
+    val petNames = pets?.joinToString(", ") { it.name } ?: ""
     return SimpleListItem(name, petNames)
 }

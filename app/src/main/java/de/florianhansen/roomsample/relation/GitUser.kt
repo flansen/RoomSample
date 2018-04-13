@@ -14,7 +14,7 @@ data class GitUser(
 data class Repo(
         @PrimaryKey(autoGenerate = true) var id: Long?,
         var name: String,
-        var userId: String
+        var userId: Long
 )
 
 class UserAndRepo {
@@ -31,10 +31,13 @@ class UserAndRepo {
 interface GitUserDao {
 
     @Insert
-    fun saveRepo(repo: Repo)
+    fun saveRepo(repo: Repo): Long
 
     @Insert
-    fun saveUser(user: GitUser)
+    fun saveUser(user: GitUser): Long
+
+    @Insert
+    fun saveRepos(repos: List<Repo>)
 
     @Transaction
     @Query("SELECT * FROM gituser")
