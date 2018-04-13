@@ -13,8 +13,8 @@ class AppModule {
     @Provides
     @Singleton
     fun database(application: Application) =
-    //Room.databaseBuilder(application, SampleDatabase::class.java, "sample.db")
-            Room.inMemoryDatabaseBuilder(application, SampleDatabase::class.java)
+            Room.databaseBuilder(application, SampleDatabase::class.java, "sample2.db")
+                    //Room.inMemoryDatabaseBuilder(application, SampleDatabase::class.java)
                     .fallbackToDestructiveMigration()
                     .build()
 

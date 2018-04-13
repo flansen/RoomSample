@@ -9,6 +9,7 @@ import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
+import java.util.concurrent.TimeUnit.SECONDS
 import javax.inject.Inject
 
 interface RelationViewModel {
@@ -24,7 +25,7 @@ class RelationViewModelImpl @Inject constructor(private val db: SampleDatabase) 
     override fun addItem() {
         isLoading.onNext(true)
         launch(CommonPool) {
-            delay(1)
+            delay(1, SECONDS)
 
             db.runInTransaction {
                 db.gitDao().let {
