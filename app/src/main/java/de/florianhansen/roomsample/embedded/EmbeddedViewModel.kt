@@ -4,10 +4,9 @@ import de.florianhansen.roomsample.common.SimpleListItem
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
-import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
 import java.util.concurrent.TimeUnit.SECONDS
 import javax.inject.Inject
 
@@ -23,13 +22,15 @@ class EmbeddedViewModelImpl @Inject constructor(private val userDao: UserDao) : 
     override val isLoading: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     override fun addItem() {
-        isLoading.onNext(true)
-        launch(CommonPool) {
-            //Some Time Intensive Network Request
-            delay(2L, SECONDS)
-            userDao.insert(User(null, "Florian Hansen", Address("Street", "City", 12345)))
+        async(UI) {
+            isLoading.onNext(true)
 
-            postLoadingValue(false)
+            async {
+                delay(2, SECONDS)
+                userDao.insert(User(null, "Florian Hansen", Address("Street", "City", 12345)))
+            }.await()
+
+            isLoading.onNext(false)
         }
     }
 
@@ -38,12 +39,6 @@ class EmbeddedViewModelImpl @Inject constructor(private val userDao: UserDao) : 
                 .map { it.map { it.toItemViewModel() } }
                 //Flowables work off the main thread
                 .observeOn(AndroidSchedulers.mainThread())
-    }
-
-    private fun postLoadingValue(newValue: Boolean) {
-        launch(UI) {
-            isLoading.onNext(newValue)
-        }
     }
 }
 
